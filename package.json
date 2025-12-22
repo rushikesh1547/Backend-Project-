@@ -11,10 +11,12 @@
   ],
   "license": "ISC",
   "author": "Rushikesh Chandekar",
-
   "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "node index.js"
+  },
+  "devDependencies": {
+    "prettier": "3.7.4"
   }
 }
