@@ -1,4 +1,4 @@
-import {User} from "../models/user.models.js";
+import User from "../models/user.models.js";
 import {ApiResponse} from "../utils/api-response.js";
 import {ApiError} from "../utils/api-error.js";
 import { asyncHandler } from "../utils/async-handler.js";
@@ -24,7 +24,8 @@ const generateAccessAndRefreshTokens = async (userId) => {
 } 
 
 const registerUser = asyncHandler(async (req, res) => {
-    const {email, username, password, role } = req.body
+    
+    const {email, username, password, role } = req.body;
 
     const existedUser = await User.findOne(
         {
@@ -37,12 +38,14 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
     const user = await User.create({
-        email, password, username, isEmailverified: false 
-    })
+        email, password, username, isEmailVerified: false 
+    });
+
+    
 
     const {unHashedToken, hashedToken, tokenExpiry} = user.generateTemporaryToken();
 
-    user.emailVerifcationToken = hashedToken
+    user.emailVerificationToken = hashedToken
     user.emailVerificationExpiry = tokenExpiry
 
     await user.save({
